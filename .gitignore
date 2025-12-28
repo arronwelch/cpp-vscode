@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Prerequisites
 *.d
 
@@ -39,3 +40,31 @@
 
 # debug information files
 *.dwo
+=======
+# 编译文件
+*.o
+*.obj
+*.exe
+*.dll
+*.so
+
+# 编译器特定文件
+*.swp
+*.swo
+
+# Debug和Release文件夹
+Debug/
+Release/
+*.dSYM/
+
+# 系统文件
+.DS_Store
+Thumbs.db
+
+# C++特定
+.vs/
+.vscode/
+*.user
+*.sdf
+*.suo
+>>>>>>> ec55514 (Initial commit: Add C++ project structure)
