@@ -36,9 +36,26 @@ protected:
 
 private:
     int positionX, positionY;
+    int *m_pValue;
+    // Shape(); // default constructor in private section
+    // cannot be called from derived class or from outside
+    // must use some function to create object
 
 public:
+
+    // Constructor function is called when an object is created
+    // it has same name as class
+    // it can be overloaded(same function name, but has different parameters)
+    Shape(); // default constructor, if omitted
     Shape(int x, int y) : positionX(x), positionY(y) {};
+    // Shape(const Shape& other); // default copy constructor, if omitted
+    Shape(const Shape &other) {
+        m_pValue = new int(*other.m_pValue); // new memory for pointer copying, not just copying pointer
+        shapeName = other.shapeName;
+        positionX = other.positionX;
+        positionY = other.positionY;
+    }
+
     const string &getName()
     { // function return a const reference of string type
         // use reference to avoid copying
@@ -79,6 +96,19 @@ int main()
     const string &name = pShape_shared->getName();
     cout << name << endl;
     // automatic delete when pShape_shared goes out of scope
+
+    Shape shape2;// call default constructor to create object name 'shape2'
+    shape2.setName("Rectangle");
+
+    // Note: 'shape' and 'shape2' are different objects
+
+    Shape shape3(); // this is not a constructor call, it is a function declaration
+
+    Shape shape4 = shape; // (copy initialization) call copy constructor to create object name 'shape4'
+    Shape shape5(shape); // (direct initialization) call copy constructor to create object name 'shape5'
+    Shape shape6 = Shape(shape); // call copy constructor to create object name 'shape6'
+    Shape *pShape7 = new Shape(shape);  // call copy constructor to create object name 'shape7'
+    delete pShape7;
 
     return 0;  // add return statement
 }
