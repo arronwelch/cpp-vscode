@@ -37,6 +37,7 @@ protected:
 private:
     int positionX, positionY;
     int *m_pValue;
+    int *pInt;
     // Shape(); // default constructor in private section
     // cannot be called from derived class or from outside
     // must use some function to create object
@@ -46,14 +47,28 @@ public:
     // Constructor function is called when an object is created
     // it has same name as class
     // it can be overloaded(same function name, but has different parameters)
-    Shape(); // default constructor, if omitted
+    // Shape(); // default constructor, if omitted
+    Shape() : shapeName("Default"), positionX(0), positionY(0) { // initialize variables
+        m_pValue = new int(0);
+        pInt = new int(0);
+    }
     Shape(int x, int y) : positionX(x), positionY(y) {};
+
     // Shape(const Shape& other); // default copy constructor, if omitted
     Shape(const Shape &other) {
-        m_pValue = new int(*other.m_pValue); // new memory for pointer copying, not just copying pointer
         shapeName = other.shapeName;
         positionX = other.positionX;
         positionY = other.positionY;
+        m_pValue = new int(*other.m_pValue); // new memory for pointer copying, not just copying pointer
+        pInt = new int(*other.pInt);
+    }
+
+    // Destructor function is called when an object is destroyed
+    // it has same name as class, but with '~' prefix
+    ~Shape() // destructor function
+    {
+        delete m_pValue;
+        delete pInt;
     }
 
     const string &getName()
