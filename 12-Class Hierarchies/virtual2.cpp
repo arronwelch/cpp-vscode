@@ -53,7 +53,16 @@ int main()
     // poly3->draw();
 
     vector<Polygon*> polygons = {poly1, poly2, poly3};
+    
+    cout << "Using const auto& - showing address of polygon reference:" << endl;
+    for(const auto& polygon : polygons) {
+        cout << "Address of polygon reference: " << &polygon << ", Value (pointer): " << polygon << endl;
+        polygon->draw();
+    }
+
+    cout << "\nUsing auto (copy) - showing address of polygon copy:" << endl;
     for(auto polygon : polygons) {
+        cout << "Address of polygon copy: " << &polygon << ", Value (pointer): " << polygon << endl;
         polygon->draw();
     }
 
