@@ -12,19 +12,28 @@ public:
     complex& operator += (const complex &); // pass by reference(to avoid copying, use const to avoid modification)
     double real () const { return re; } // constant member function
     double imag () const { return im; } // constant member function
+
+    double func(const complex & val) { // same class member function is friend function each other
+        return val.re + val.im; // access private members of another object of the same class
+    }
 private:
     double re, im;
 
-    friend complex& __doapl (complex*, const complex&);
+
+    friend complex& __doapl (complex*, const complex&); // friend function
     friend ostream& operator << (ostream&, const complex&);  // Declare as friend to access private members
 };
 
-complex& complex::operator += (const complex & val)  // Add complex:: prefix to make it a class method
+// operator overloading as class member function
+inline complex&
+complex::operator += (const complex & val)  // Add complex:: prefix to make it a class method
 {
-    return __doapl (this, val);
+    return __doapl (this, val); // do asignment plus
 }
 
-complex& __doapl (complex *ths, const complex & val)
+inline complex&
+__doapl (complex *ths, const complex & val) // first parameter is pointer to complex object
+// second parameter is reference to const complex object
 {
     ths->re += val.re;
     ths->im += val.im;
@@ -37,6 +46,18 @@ ostream& operator << (ostream& os, const complex& x)
     return os << '(' << x.real() << ',' << x.imag() << ')';
 }
 
+inline double
+imag(const complex& x) // non-member function to access private members via public interface
+{
+    return x.imag();
+}
+
+inline double
+real(const complex& x) // non-member function to access private members via public interface
+{
+    return x.real();
+}
+
 int main()
 {
     complex a(1,2), b(3,4);
@@ -47,4 +68,6 @@ int main()
     cout << c.real() << " " << c.imag() << endl;
 
     cout << c << endl;
+
+    cout << a.func(c) << endl; // call member function to access private members of another object of the same class
 }
