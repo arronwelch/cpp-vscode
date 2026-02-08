@@ -108,6 +108,30 @@ operator==(double x, const complex &y)
     return x == real(y) && imag(y) == 0;
 }
 
+inline bool
+operator!=(const complex &x, const complex &y)
+{
+    return real(x) != real(y) || imag(x) != imag(y);
+}
+
+inline bool
+operator!=(const complex &x, double y)
+{
+    return real(x) != y || imag(x) != 0;
+}
+
+inline bool
+operator!=(double x, const complex &y)
+{
+    return x != real(y) || imag(y) != 0;
+}
+
+inline complex
+conj (const complex &x)
+{
+    return complex(real(x), -imag(x));
+}
+
 int main()
 {
     complex a(1, 2), b(3, 4);
@@ -138,4 +162,13 @@ int main()
     cout << "-c4 = " << -c4 << endl; // test unary minus operator
     cout << "+c5 = " << +c5 << endl; // test unary plus operator
 
+    cout << "c4 == c5 ? " << (c4 == c5) << endl;
+    cout << "c4 == 2.0 ? " << (c4 == 2.0) << endl;
+    cout << "2.0 == c4 ? " << (2.0 == c4) << endl;
+
+    cout << "c4 != c5 ? " << (c4 != c5) << endl;
+    cout << "c4 != 2.0 ? " << (c4 != 2.0) << endl;
+    cout << "2.0 != c4 ? " << (2.0 != c4) << endl;
+
+    cout << "conj(c4) = " << conj(c4) << endl; // test conjugate function
 }
